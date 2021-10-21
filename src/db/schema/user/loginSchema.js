@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const {Schema,model} = mongoose
 
-const loginSchema = new Schema({
+const userLoginSchema = new Schema({
     name:{type:String,required:true},
     surname:{type:String,required:true},
     email:{type:String,required:true},
@@ -11,4 +11,4 @@ const loginSchema = new Schema({
 
 },{timestamps:true})
 
-export default model('user',loginSchema)
+export default model('user',userLoginSchema)
