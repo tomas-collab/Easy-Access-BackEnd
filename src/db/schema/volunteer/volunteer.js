@@ -6,6 +6,7 @@ const volunteerLoginSchema = new Schema({
     name:{type:String,required:true},
     surname:{type:String,required:true},
     email:{type:String,required:true},
+    phoneNumber:{type:String},
     password:{type:String,required:true},
     googleId: { type: String },
 

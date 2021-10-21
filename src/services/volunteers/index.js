@@ -1,0 +1,1 @@
+import volunteerModel from '../../db/schema/volunteer/volunteer'
