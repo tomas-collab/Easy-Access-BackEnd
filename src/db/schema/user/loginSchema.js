@@ -11,4 +11,4 @@ const loginSchema = new Schema({
 
 },{timestamps:true})
 
-export default model('volunteer',loginSchema)
+export default model('user',loginSchema)
