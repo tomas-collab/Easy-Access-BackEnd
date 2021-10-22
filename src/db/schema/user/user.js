@@ -7,6 +7,7 @@ const userLoginSchema = new Schema({
     surname:{type:String,required:true},
     email:{type:String,required:true},
     password:{type:String,required:true},
+    phoneNumber:{type:String},
     googleId: { type: String },
     location:{type:Object}
 
