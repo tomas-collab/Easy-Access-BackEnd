@@ -1,5 +1,6 @@
 import userModel from '../../db/schema/user/user.js'
 import { JWTAuthMiddleware } from '../../auth/token.js'
+import { jwtAuth } from '../../auth/tools.js'
 
 const getUsers = async(req,res,next)=>{
     try {
@@ -50,14 +51,24 @@ const postUserDetail = async(req,res,next)=>{
 }
 const UserLogin = async(req,res,next)=>{
     try {
-        
+        const {email,password} = req.body
+        const user = await userModel.checkCredentials(email,password)
+        if(user){
+            const {accessToken,refreshToken} = await jwtAuth(user)
+            res.send({accessToken,refreshToken})
+            console.log('token',{accessToken})
+        }else{
+            next(createHttpError(401,'something wrong with credentials'))
+        }
     } catch (error) {
         next(error)
     }
 }
 const UserRegister = async(req,res,next)=>{
     try {
-        
+        const newRegister = new userModel(req.body)
+        const user = await newRegister.save()
+        res.status(200).send()
     } catch (error) {
         next(error)
     }
