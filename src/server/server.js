@@ -5,11 +5,19 @@ import userRouter from '../services/users/routes.js'
 import volunteerRouter from '../services/volunteers/routes.js'
 import listEndpoints from 'express-list-endpoints'
 import ErrorHandlers from '../lib/errorHandlers.js'
+import passport from 'passport'
+import googleStrategy from '../auth/oauth.js'
+import cookieParser from 'cookie-parser'
 const server = express()
 
 const port = process.env.PORT || 3040
+passport.use('google',googleStrategy)
+
+
 server.use(cors())
 server.use(express.json())
+server.use(cookieParser())
+server.use(passport.initialize())
 
 
 server.use('/users',userRouter)

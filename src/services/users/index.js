@@ -2,7 +2,8 @@ import userModel from '../../db/schema/user/user.js'
 
 const getUsers = async(req,res,next)=>{
     try {
-        
+        const users = await userModel.find()
+        res.status(200).send(users)
     } catch (error) {
         next(error)
     }
