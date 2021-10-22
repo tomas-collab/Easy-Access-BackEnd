@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import userRouter from '../services/users/routes.js'
 import volunteerRouter from '../services/volunteers/routes.js'
 import listEndpoints from 'express-list-endpoints'
+import ErrorHandlers from '../lib/errorHandlers.js'
 const server = express()
 
 const port = process.env.PORT || 3040
@@ -14,6 +15,12 @@ server.use(express.json())
 server.use('/users',userRouter)
 server.use('/volunteers',volunteerRouter)
 
+
+server.use(ErrorHandlers.badRequest)
+server.use(ErrorHandlers.forbidden)
+server.use(ErrorHandlers.notFound)
+server.use(ErrorHandlers.GeneralError)
+server.use(ErrorHandlers.unauthorizedHandler)
 
 
 mongoose.connect(process.env.MONGO_URL)
