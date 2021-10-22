@@ -32,3 +32,13 @@ const verifyRefreshToken = token=>
            if(err) reject(err)
                  resolve(decodedToken)
        }))
+
+
+export const jwtAuth = async user =>{
+    const accessToken = await generateJWT({_id:user.id})
+    const refreshToken = await generateRefreshJWT({_id:user.id})
+
+    user.refreshToken = refreshToken
+    await user.save()
+    return({accessToken,refreshToken})
+}
