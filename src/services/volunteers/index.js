@@ -28,7 +28,7 @@ const getVolunteerMe= async(req,res,next)=>{
 }
 const updateVolunteerMe = async(req,res,next)=>{
     try {
-        const updateVolunteer = await volunteerModel.findById(req.volunteer._id,req.body,{new:true})
+        const updateVolunteer = await volunteerModel.findByIdAndUpdate(req.volunteer._id,req.body,{new:true})
         res.send(updateVolunteer)
     } catch (error) {
         next(error)
@@ -37,7 +37,7 @@ const updateVolunteerMe = async(req,res,next)=>{
 const deleteVolunteerMe = async(req,res,next)=>{
     try {
         const deleteVolunteer = await volunteerModel.findByIdAndDelete(req.volunteer._id)
-        res.send(deleteVolunteer)
+        res.send('deleted')
     } catch (error) {
         next(error)
     }

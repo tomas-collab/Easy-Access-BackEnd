@@ -5,12 +5,12 @@ const {Schema,model} = mongoose
 
 const volunteerSchema = new Schema({
     name:{type:String,required:true},
-    surname:{type:String,required:true},
+    surname:{type:String},
     email:{type:String,required:true},
     phoneNumber:{type:String},
-    location:{type:Object},
-    password:{type:String,required:true},
+    password:{type:String},
     googleId: { type: String },
+    location:{type:Object},
 
 },{timestamps:true})
 
