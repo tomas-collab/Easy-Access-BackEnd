@@ -36,7 +36,8 @@ const updateVolunteerMe = async(req,res,next)=>{
 }
 const deleteVolunteerMe = async(req,res,next)=>{
     try {
-        
+        const deleteVolunteer = await volunteerModel.findByIdAndDelete(req.volunteer._id)
+        res.send(deleteVolunteer)
     } catch (error) {
         next(error)
     }
