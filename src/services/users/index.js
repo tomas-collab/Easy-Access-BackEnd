@@ -44,13 +44,6 @@ const deleteUserMe = async(req,res,next)=>{
         next(error)
     }
 }
-const postUserDetail = async(req,res,next)=>{
-    try {
-        
-    } catch (error) {
-        next(error)
-    }
-}
 const UserLogin = async(req,res,next)=>{
     try {
         const {email,password} = req.body
@@ -83,7 +76,6 @@ export const allMethods = {
     getUserMe:getUserMe,
     updateUserMe:updateUserMe,
     deleteUserMe:deleteUserMe,
-    postUserDetail:postUserDetail,
     UserLogin:UserLogin,
     UserRegister:UserRegister
 }

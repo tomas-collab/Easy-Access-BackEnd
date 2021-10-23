@@ -18,8 +18,6 @@ userRouter.route('/me')
 userRouter.route('/')
 .get(allMethods.getUsers)
 
-userRouter.route('/me/details')
-.post(allMethods.postUserDetail)
 
 
 

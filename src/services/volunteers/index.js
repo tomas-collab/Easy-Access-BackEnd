@@ -1,3 +1,4 @@
+import { jwtAuth } from '../../auth/tools.js'
 import volunteerModel from '../../db/schema/volunteer/volunteer.js'
 
 const getVolunteers = async(req,res,next)=>{
@@ -38,23 +39,26 @@ const deleteVolunteerMe = async(req,res,next)=>{
         next(error)
     }
 }
-const postVolunteerDetail = async(req,res,next)=>{
-    try {
-        
-    } catch (error) {
-        next(error)
-    }
-}
 const VolunteerLogin = async(req,res,next)=>{
     try {
-        
+        const {email,password} = req.body
+        const volunteer = await volunteerModel.checkCredentials(email,password)
+        if(volunteer){
+            const {accessToken} = await jwtAuth(volunteer)
+            res.send({accessToken})
+            console.log('token',{accessToken})
+        }else{
+            next(createHttpError(401,'something wrong with credentials'))
+        }
     } catch (error) {
         next(error)
     }
 }
 const VolunteerRegister = async(req,res,next)=>{
     try {
-        
+        const newVolunteer = new volunteerModel(req.body)
+        const volunteer = await newVolunteer.save()
+        res.send(volunteer)
     } catch (error) {
         next(error)
     }
@@ -67,7 +71,6 @@ export const allMethods = {
     getVolunteerMe:getVolunteerMe,
     updateVolunteerMe:updateVolunteerMe,
     deleteVolunteerMe:deleteVolunteerMe,
-    postVolunteerDetail:postVolunteerDetail,
     VolunteerLogin:VolunteerLogin,
     VolunteerRegister:VolunteerRegister
 }
