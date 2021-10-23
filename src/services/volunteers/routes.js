@@ -1,4 +1,5 @@
 import express from 'express'
+import { volunteerJWTAuthMiddleware } from '../../auth/token.js'
 import { allMethods } from './index.js'
 
 const volunteerRouter = express.Router()
@@ -10,12 +11,11 @@ volunteerRouter.route('/register')
 .post(allMethods.VolunteerRegister)
 
 volunteerRouter.route('/me')
-.get(allMethods.getVolunteerMe)
-.put(allMethods.updateVolunteerMe)
-.delete(allMethods.deleteVolunteerMe)
+.get(volunteerJWTAuthMiddleware,allMethods.getVolunteerMe)
+.put(volunteerJWTAuthMiddleware,allMethods.updateVolunteerMe)
+.delete(volunteerJWTAuthMiddleware,allMethods.deleteVolunteerMe)
 
-volunteerRouter.route('/me/details')
-.post(allMethods.postVolunteerDetail)
+
 
 
 

@@ -1,4 +1,5 @@
 import express from 'express'
+import { userJWTAuthMiddleware } from '../../auth/token.js'
 import { allMethods } from './index.js'
 
 const userRouter = express.Router()
@@ -10,9 +11,12 @@ userRouter.route('/register')
 .post(allMethods.UserRegister)
 
 userRouter.route('/me')
-.get(allMethods.getUserMe)
-.put(allMethods.updateUserMe)
-.delete(allMethods.deleteUserMe)
+.get(userJWTAuthMiddleware,allMethods.getUserMe)
+.put(userJWTAuthMiddleware,allMethods.updateUserMe)
+.delete(userJWTAuthMiddleware,allMethods.deleteUserMe)
+
+userRouter.route('/')
+.get(allMethods.getUsers)
 
 userRouter.route('/me/details')
 .post(allMethods.postUserDetail)

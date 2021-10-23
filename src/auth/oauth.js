@@ -6,7 +6,7 @@ import { jwtAuth } from './tools.js'
 
 
 export const userGoogleStrategy = new GoogleStrategy({
-    clientId:process.env.GOOGLE_OAUTH_ID,
+    clientID:process.env.GOOGLE_OAUTH_ID,
     clientSecret:process.env.GOOGLE_OAUTH_SECRET,
     callbackUrl:`${process.env.API_URL}:${process.env.PORT}/users/googleRedirect`,
 },
@@ -33,7 +33,7 @@ async(accessToken,refreshToken,profile,passportNext)=>{
     }})
 
 export const volunteerGoogleStrategy = new GoogleStrategy({
-    clientId:process.env.GOOGLE_OAUTH_ID,
+    clientID:process.env.GOOGLE_OAUTH_ID,
     clientSecret:process.env.GOOGLE_OAUTH_SECRET,
     callbackUrl:`${process.env.API_URL}:${process.env.PORT}/volunteers/googleRedirect`,
 },

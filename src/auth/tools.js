@@ -1,4 +1,4 @@
-import { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import userModel from '../db/schema/user/user.js'
 
 
@@ -21,14 +21,14 @@ const generateRefreshJWT = payload=>
 
 export const verifyJWT = token=>
        new Promise((resolve,reject)=>
-       jwt.verify(payload,process.env.JWT_SECRET,(err,decodedToken)=>{
+       jwt.verify(token,process.env.JWT_SECRET,(err,decodedToken)=>{
            if(err) reject(err)
                resolve(decodedToken)
        }))
 
 const verifyRefreshToken = token=>
        new Promise((resolve,reject)=>
-       jwt.verify(payload,process.env.JWT_REFRESH_SECRET,(err,decodedToken)=>{
+       jwt.verify(token,process.env.JWT_REFRESH_SECRET,(err,decodedToken)=>{
            if(err) reject(err)
                  resolve(decodedToken)
        }))
@@ -36,9 +36,9 @@ const verifyRefreshToken = token=>
 
 export const jwtAuth = async user =>{
     const accessToken = await generateJWT({_id:user.id})
-    const refreshToken = await generateRefreshJWT({_id:user.id})
+    // const refreshToken = await generateRefreshJWT({_id:user.id})
 
-    user.refreshToken = refreshToken
+    // user.refreshToken = refreshToken
     await user.save()
-    return({accessToken,refreshToken})
+    return({accessToken})
 }

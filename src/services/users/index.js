@@ -1,6 +1,7 @@
 import userModel from '../../db/schema/user/user.js'
-import { JWTAuthMiddleware } from '../../auth/token.js'
+
 import { jwtAuth } from '../../auth/tools.js'
+import createHttpError from 'http-errors'
 
 const getUsers = async(req,res,next)=>{
     try {
@@ -19,17 +20,18 @@ const postUser = async(req,res,next)=>{
         next(error)
     }
 }
-const getUserMe= async(JWTAuthMiddleware,req,res,next)=>{
+const getUserMe = async(req,res,next)=>{
     try {
+        console.log(req.user)
         res.status(200).send(req.user)
     } catch (error) {
         next(error)
     }
 }
-const updateUserMe = async(JWTAuthMiddleware,req,res,next)=>{
+const updateUserMe = async(req,res,next)=>{
     try {
         const updateUser = await userModel.findByIdAndUpdate(req.user._id,req.body,{new:true})
-        res.status(204).send(updateUser)
+        res.send(updateUser)
     } catch (error) {
         next(error)
     }
@@ -54,8 +56,8 @@ const UserLogin = async(req,res,next)=>{
         const {email,password} = req.body
         const user = await userModel.checkCredentials(email,password)
         if(user){
-            const {accessToken,refreshToken} = await jwtAuth(user)
-            res.send({accessToken,refreshToken})
+            const {accessToken} = await jwtAuth(user)
+            res.send({accessToken})
             console.log('token',{accessToken})
         }else{
             next(createHttpError(401,'something wrong with credentials'))
@@ -68,7 +70,7 @@ const UserRegister = async(req,res,next)=>{
     try {
         const newRegister = new userModel(req.body)
         const user = await newRegister.save()
-        res.status(200).send()
+        res.status(200).send(user)
     } catch (error) {
         next(error)
     }
