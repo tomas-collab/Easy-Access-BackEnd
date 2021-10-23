@@ -2,21 +2,24 @@ import volunteerModel from '../../db/schema/volunteer/volunteer.js'
 
 const getVolunteers = async(req,res,next)=>{
     try {
-        
+        const volunteers = await volunteerModel.find()
+        res.status(200).send(volunteers)
     } catch (error) {
         next(error)
     }
 }
 const postVolunteer = async(req,res,next)=>{
     try {
-        
+        const newVolunteer = new volunteerModel(req.body)
+        const volunteer = await newVolunteer.save()
+        res.status(201).send(volunteer)
     } catch (error) {
         next(error)
     }
 }
 const getVolunteerMe= async(req,res,next)=>{
     try {
-        
+        req.user = user
     } catch (error) {
         next(error)
     }
