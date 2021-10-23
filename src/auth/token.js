@@ -31,7 +31,7 @@ export const volunteerJWTAuthMiddleware= async(req,res,next)=>{
             const token = req.headers.authorization.replace("Bearer ","")
             const decodedToken = await verifyJWT(token)
             const volunteer= await volunteerModel.findById(decodedToken._id)
-            if(user){
+            if(volunteer){
                 req.volunteer = volunteer
                 next()
             }else{

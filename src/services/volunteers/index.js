@@ -1,5 +1,6 @@
 import { jwtAuth } from '../../auth/tools.js'
 import volunteerModel from '../../db/schema/volunteer/volunteer.js'
+import createHttpError from 'http-errors'
 
 const getVolunteers = async(req,res,next)=>{
     try {
@@ -20,14 +21,15 @@ const postVolunteer = async(req,res,next)=>{
 }
 const getVolunteerMe= async(req,res,next)=>{
     try {
-        req.user = user
+        res.status(200).send(req.volunteer)
     } catch (error) {
         next(error)
     }
 }
 const updateVolunteerMe = async(req,res,next)=>{
     try {
-        
+        const updateVolunteer = await volunteerModel.findById(req.volunteer._id,req.body,{new:true})
+        res.send(updateVolunteer)
     } catch (error) {
         next(error)
     }

@@ -15,8 +15,6 @@ volunteerRouter.route('/me')
 .put(volunteerJWTAuthMiddleware,allMethods.updateVolunteerMe)
 .delete(volunteerJWTAuthMiddleware,allMethods.deleteVolunteerMe)
 
-
-
-
-
+volunteerRouter.route('/')
+.get(allMethods.getVolunteers)
 export default volunteerRouter
