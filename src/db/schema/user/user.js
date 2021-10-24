@@ -7,12 +7,12 @@ const userSchema = new Schema({
     surname:{type:String,required:true},
     email:{type:String,required:true},
     password:{type:String},
+    description:{type:String},
     phoneNumber:{type:String},
     googleId: { type: String },
     location:{type:Object}
 
 },{timestamps:true})
-
 
   userSchema.pre('save',async function(next){
       const user = this

@@ -40,5 +40,5 @@ export const jwtAuth = async user =>{
 
     // user.refreshToken = refreshToken
     await user.save()
-    return({accessToken})
+    return(accessToken)
 }

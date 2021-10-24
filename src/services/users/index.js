@@ -48,9 +48,11 @@ const UserLogin = async(req,res,next)=>{
     try {
         const {email,password} = req.body
         const user = await userModel.checkCredentials(email,password)
+        console.log('user',user)
         if(user){
-            const {accessToken} = await jwtAuth(user)
-            res.send({accessToken})
+            const accessToken = await jwtAuth(user)
+            res.cookie('token',accessToken)
+            res.send(accessToken)
             console.log('token',{accessToken})
         }else{
             next(createHttpError(401,'something wrong with credentials'))

@@ -4,11 +4,11 @@ import volunteerModel from '../db/schema/volunteer/volunteer.js'
 import createHttpError from "http-errors";
 
 export const userJWTAuthMiddleware = async(req,res,next)=>{
-    if(!req.headers.authorization){
+    if(!req.headers.cookie){
         next(createHttpError(401,"yo provide credentials"))
     }else{
         try {
-            const token = req.headers.authorization.replace("Bearer ","")
+            const token = req.headers.cookie.replace("token=","")
             const decodedToken = await verifyJWT(token)
             const user = await userModel.findById(decodedToken._id)
             console.log('user',user)

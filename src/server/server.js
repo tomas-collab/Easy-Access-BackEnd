@@ -15,7 +15,7 @@ passport.use('google',userGoogleStrategy)
 passport.use('google',volunteerGoogleStrategy)
 
 
-server.use(cors())
+server.use(cors({origin:'http://localhost:3000',credentials:true}))
 server.use(express.json())
 server.use(cookieParser())
 server.use(passport.initialize())
