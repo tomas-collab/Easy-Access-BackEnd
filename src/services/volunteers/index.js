@@ -48,6 +48,7 @@ const VolunteerLogin = async(req,res,next)=>{
         const volunteer = await volunteerModel.checkCredentials(email,password)
         if(volunteer){
             const accessToken = await jwtAuth(volunteer)
+            res.cookie('token',accessToken)
             res.send(accessToken)
             console.log('token',{accessToken})
         }else{
@@ -66,8 +67,6 @@ const VolunteerRegister = async(req,res,next)=>{
         next(error)
     }
 }
-
-
 export const allMethods = {
     getVolunteers:getVolunteers,
     postVolunteer:postVolunteer,
