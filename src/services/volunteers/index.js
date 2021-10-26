@@ -47,8 +47,8 @@ const VolunteerLogin = async(req,res,next)=>{
         const {email,password} = req.body
         const volunteer = await volunteerModel.checkCredentials(email,password)
         if(volunteer){
-            const {accessToken} = await jwtAuth(volunteer)
-            res.send({accessToken})
+            const accessToken = await jwtAuth(volunteer)
+            res.send(accessToken)
             console.log('token',{accessToken})
         }else{
             next(createHttpError(401,'something wrong with credentials'))

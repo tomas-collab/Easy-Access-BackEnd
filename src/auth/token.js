@@ -5,7 +5,7 @@ import createHttpError from "http-errors";
 
 export const userJWTAuthMiddleware = async(req,res,next)=>{
     if(!req.headers.cookie){
-        next(createHttpError(401,"yo provide credentials"))
+        next(createHttpError(401,"yo provide cookies"))
     }else{
         try {
             const token = req.headers.cookie.replace("token=","")
@@ -24,11 +24,11 @@ export const userJWTAuthMiddleware = async(req,res,next)=>{
     }
 }
 export const volunteerJWTAuthMiddleware= async(req,res,next)=>{
-    if(!req.headers.authorization){
-        next(createHttpError(401,"yo provide credentials"))
+    if(!req.headers.cookie){
+        next(createHttpError(401,"yo provide cookies"))
     }else{
         try {
-            const token = req.headers.authorization.replace("Bearer ","")
+            const token = req.headers.cookie.replace("token=","")
             const decodedToken = await verifyJWT(token)
             const volunteer= await volunteerModel.findById(decodedToken._id)
             if(volunteer){
