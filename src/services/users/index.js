@@ -70,6 +70,21 @@ const UserRegister = async(req,res,next)=>{
         next(error)
     }
 }
+const uploadImage = async(req, res, next) => {
+    try {
+      const imageUrl = req.file.path;
+     
+      const updateUser = await userModel.findByIdAndUpdate(
+        req.user._id,
+        { image: imageUrl },
+        { new: true }
+      )
+      res.status(201).send(updateUser)
+    } catch (error) {
+      next(error)
+    }
+  }
+  
 
 
 export const allMethods = {
@@ -79,5 +94,6 @@ export const allMethods = {
     updateUserMe:updateUserMe,
     deleteUserMe:deleteUserMe,
     UserLogin:UserLogin,
-    UserRegister:UserRegister
+    UserRegister:UserRegister,
+    uploadImage:uploadImage
 }

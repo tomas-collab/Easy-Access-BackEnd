@@ -1,7 +1,8 @@
 import express from 'express'
 import { userJWTAuthMiddleware } from '../../auth/token.js'
 import { allMethods } from './index.js'
-
+import { saveToUser } from '../../lib/cloudinaryTool.js'
+import multer from 'multer'
 const userRouter = express.Router()
 
 userRouter.route('/login')
@@ -18,7 +19,9 @@ userRouter.route('/me')
 userRouter.route('/')
 .get(allMethods.getUsers)
 
-
+userRouter
+  .route("/me/imageUpload")
+  .put(userJWTAuthMiddleware,multer({ storage: saveToUser }).single("avatar"), allMethods.uploadImage)
 
 
 export default userRouter
