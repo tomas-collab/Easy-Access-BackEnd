@@ -10,7 +10,8 @@ const userSchema = new Schema({
     description:{type:String},
     phoneNumber:{type:String},
     googleId: { type: String },
-    location:{type:Object}
+    location:{type:Object},
+    image:{type:String}
 
 },{timestamps:true})
 

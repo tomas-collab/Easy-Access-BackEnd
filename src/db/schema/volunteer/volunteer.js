@@ -11,6 +11,7 @@ const volunteerSchema = new Schema({
     password:{type:String},
     googleId: { type: String },
     location:{type:Object},
+    image:{type:String}
 
 },{timestamps:true})
 
