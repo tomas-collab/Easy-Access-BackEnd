@@ -1,5 +1,5 @@
-import pkg from 'cloudinary'
 import multerStorageCloudinary from 'multer-storage-cloudinary'
+import pkg from 'cloudinary'
 const {v2:cloudinary} = pkg
 const {CloudinaryStorage} = multerStorageCloudinary
 
