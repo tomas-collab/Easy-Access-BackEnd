@@ -6,6 +6,7 @@ const {Schema,model} = mongoose
 const volunteerSchema = new Schema({
     name:{type:String,required:true},
     surname:{type:String},
+    age:{type:Number},    
     email:{type:String,required:true},
     phoneNumber:{type:String},
     password:{type:String},
