@@ -8,6 +8,7 @@ import ErrorHandlers from '../lib/errorHandlers.js'
 import passport from 'passport'
 import { userGoogleStrategy ,volunteerGoogleStrategy} from '../auth/oauth.js'
 import cookieParser from 'cookie-parser'
+import {createServer} from 'http'
 const server = express()
 
 const port = process.env.PORT || 3040
@@ -31,11 +32,12 @@ server.use(ErrorHandlers.notFound)
 server.use(ErrorHandlers.GeneralError)
 server.use(ErrorHandlers.unauthorizedHandler)
 
+export const httpServer = createServer(server)
 
 mongoose.connect(process.env.MONGO_URL)
 mongoose.connection.on('connected',()=>{
     console.log('mongoose connected successfully')
-    server.listen(port,async()=>{
+    httpServer.listen(port,async()=>{
         console.table(listEndpoints(server))
         console.log('server listening on port:',port)
     })
