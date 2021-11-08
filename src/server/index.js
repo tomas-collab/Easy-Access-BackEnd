@@ -8,10 +8,13 @@ import ErrorHandlers from '../lib/errorHandlers.js'
 import passport from 'passport'
 import { userGoogleStrategy ,volunteerGoogleStrategy} from '../auth/oauth.js'
 import cookieParser from 'cookie-parser'
-import {createServer} from 'http'
-const server = express()
+import { createServer} from 'http'
+import { Server } from 'socket.io'
 
-const port = process.env.PORT || 3040
+const server = express()
+const port = process.env.PORT || 3030
+export const httpServer = createServer(server)
+
 passport.use('google',userGoogleStrategy)
 passport.use('google',volunteerGoogleStrategy)
 
@@ -32,9 +35,40 @@ server.use(ErrorHandlers.notFound)
 server.use(ErrorHandlers.GeneralError)
 server.use(ErrorHandlers.unauthorizedHandler)
 
-export const httpServer = createServer(server)
+export const io = new Server(httpServer,{allowEIO3:true})
+let users = [];
 
-mongoose.connect(process.env.MONGO_URL)
+const addUser = (userId, socketId) => {
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+};
+
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
+};
+
+io.on('connection',socket=>{
+    console.log('socket',socket.id);
+
+ socket.on("addUser", (userId) => {
+    addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("a user disconnected!");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  })
+
+})
+
+
+mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true })
 mongoose.connection.on('connected',()=>{
     console.log('mongoose connected successfully')
     httpServer.listen(port,async()=>{
