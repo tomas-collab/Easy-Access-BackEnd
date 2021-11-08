@@ -17,4 +17,7 @@ volunteerRouter.route('/me')
 
 volunteerRouter.route('/')
 .get(allMethods.getVolunteers)
+
+volunteerRouter.route('/:id')
+.get(allMethods.getvolunteer)
 export default volunteerRouter

@@ -84,10 +84,20 @@ const uploadImage = async(req, res, next) => {
       next(error)
     }
   }
+
+  const getUser = async(req,res,next)=>{
+    try {
+        const user = await userModel.findById(req.params.id)
+        res.status(200).send(user)
+    } catch (error) {
+        next(error)
+    }
+}
   
 
 
 export const allMethods = {
+    getUser:getUser,
     getUsers:getUsers,
     postUser:postUser,
     getUserMe:getUserMe,

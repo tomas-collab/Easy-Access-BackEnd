@@ -67,7 +67,16 @@ const VolunteerRegister = async(req,res,next)=>{
         next(error)
     }
 }
+const getvolunteer = async(req,res,next)=>{
+    try {
+        const user = await volunteerModel.findById(req.params.id)
+        res.status(200).send(user)
+    } catch (error) {
+        next(error)
+    }
+}
 export const allMethods = {
+    getvolunteer:getvolunteer,
     getVolunteers:getVolunteers,
     postVolunteer:postVolunteer,
     getVolunteerMe:getVolunteerMe,

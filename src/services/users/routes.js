@@ -19,6 +19,8 @@ userRouter.route('/me')
 userRouter.route('/')
 .get(allMethods.getUsers)
 
+userRouter.route('/:id')
+.get(allMethods.getUser)
 userRouter
   .route("/me/imageUpload")
   .put(userJWTAuthMiddleware,multer({ storage: saveToUser }).single("avatar"), allMethods.uploadImage)
