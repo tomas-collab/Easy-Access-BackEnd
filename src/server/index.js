@@ -10,7 +10,8 @@ import { userGoogleStrategy ,volunteerGoogleStrategy} from '../auth/oauth.js'
 import cookieParser from 'cookie-parser'
 import { createServer} from 'http'
 import { Server } from 'socket.io'
-
+import chatRouter from '../services/chat/index.js'
+import messageRouter from '../services/message/index.js'
 const server = express()
 const port = process.env.PORT || 3030
 export const httpServer = createServer(server)
@@ -27,6 +28,8 @@ server.use(passport.initialize())
 
 server.use('/users',userRouter)
 server.use('/volunteers',volunteerRouter)
+server.use('/chat',chatRouter)
+server.use('/messages',messageRouter)
 
 
 server.use(ErrorHandlers.badRequest)
@@ -58,6 +61,7 @@ io.on('connection',socket=>{
     addUser(userId, socket.id);
     io.emit("getUsers", users);
   });
+  
 
   socket.on("disconnect", () => {
     console.log("a user disconnected!");
