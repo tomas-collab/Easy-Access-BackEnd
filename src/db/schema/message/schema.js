@@ -2,10 +2,19 @@ import mongoose from 'mongoose'
 
 const {Schema,model} = mongoose
 
-const messageSchema = new Schema({
-    text: { type: String, required: true },
-    sender: { type: String, required: true },
-    id: { type: String, required: true },
-    timestamp: { type: Number, required: true }
-})
+const messageSchema = new Schema(
+    {
+        chatId: {
+          type: String,
+        },
+        sender: {
+          type: String,
+        },
+        text: {
+          type: String,
+        },
+      },
+      { timestamps: true }
+    );
+
 export default model('message',messageSchema)
