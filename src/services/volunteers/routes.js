@@ -1,6 +1,9 @@
 import express from 'express'
+import multer from 'multer'
 import { volunteerJWTAuthMiddleware } from '../../auth/token.js'
+import { saveToVolunteer } from '../../lib/cloudinaryTool.js'
 import { allMethods } from './index.js'
+
 
 const volunteerRouter = express.Router()
 
@@ -20,4 +23,9 @@ volunteerRouter.route('/')
 
 volunteerRouter.route('/:id')
 .get(allMethods.getvolunteer)
+
+volunteerRouter
+  .route("/me/imageUpload")
+  .put(volunteerJWTAuthMiddleware,multer({ storage: saveToVolunteer }).single("avatar"), allMethods.uploadImage)
+
 export default volunteerRouter

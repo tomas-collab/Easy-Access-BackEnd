@@ -75,7 +75,23 @@ const getvolunteer = async(req,res,next)=>{
         next(error)
     }
 }
+
+const uploadImage = async(req, res, next) => {
+    try {
+      const imageUrl = req.file.path;
+     
+      const updatevolunteer = await volunteerModel.findByIdAndUpdate(
+        req.volunteer._id,
+        { image: imageUrl },
+        { new: true }
+      )
+      res.status(201).send(updatevolunteer)
+    } catch (error) {
+      next(error)
+    }
+  }
 export const allMethods = {
+    uploadImage:uploadImage,
     getvolunteer:getvolunteer,
     getVolunteers:getVolunteers,
     postVolunteer:postVolunteer,
