@@ -9,7 +9,7 @@ const userSchema = new Schema({
     email:{type:String,required:true},
     password:{type:String},
     description:{type:String},
-    phoneNumber:{type:String},
+    phoneNumber:{type:Number},
     googleId: { type: String },
     location:{type:Object},
     image:{type:String}

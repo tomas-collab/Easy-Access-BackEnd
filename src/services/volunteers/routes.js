@@ -28,4 +28,8 @@ volunteerRouter
   .route("/me/imageUpload")
   .put(volunteerJWTAuthMiddleware,multer({ storage: saveToVolunteer }).single("avatar"), allMethods.uploadImage)
 
+  volunteerRouter.route('/logout')
+  .get((res,req)=>{
+    res.clearCookie('token').status(200).send();
+  })
 export default volunteerRouter

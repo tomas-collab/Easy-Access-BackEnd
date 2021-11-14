@@ -25,5 +25,10 @@ userRouter
   .route("/me/imageUpload")
   .put(userJWTAuthMiddleware,multer({ storage: saveToUser }).single("avatar"), allMethods.uploadImage)
 
+userRouter.route('/logout')
+.get((res,req)=>{
+  res.clearCookie('token').status(200).send();
+})
+
 
 export default userRouter
