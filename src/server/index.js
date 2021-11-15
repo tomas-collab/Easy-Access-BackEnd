@@ -6,7 +6,7 @@ import volunteerRouter from '../services/volunteers/routes.js'
 import listEndpoints from 'express-list-endpoints'
 import ErrorHandlers from '../lib/errorHandlers.js'
 import passport from 'passport'
-import { userGoogleStrategy ,volunteerGoogleStrategy} from '../auth/oauth.js'
+// import { userGoogleStrategy ,volunteerGoogleStrategy} from '../auth/oauth.js'
 import cookieParser from 'cookie-parser'
 import { createServer} from 'http'
 import { Server } from 'socket.io'
@@ -16,8 +16,8 @@ const server = express()
 const port = process.env.PORT || 3030
 export const httpServer = createServer(server)
 
-passport.use('google',userGoogleStrategy)
-passport.use('google',volunteerGoogleStrategy)
+// passport.use('google',userGoogleStrategy)
+// passport.use('google',volunteerGoogleStrategy)
 
 
 server.use(cors({origin:'http://localhost:3000',credentials:true}))
