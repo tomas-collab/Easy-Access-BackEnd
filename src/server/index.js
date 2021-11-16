@@ -19,20 +19,8 @@ export const httpServer = createServer(server)
 // passport.use('google',userGoogleStrategy)
 // passport.use('google',volunteerGoogleStrategy)
 
-const whitelist = [`${process.env.API_URL}`,`${process.env.API_URL_PRODUCTION}`]
 
-const corsOpts = {
-  origin: function (origin, next) {
-    if (!origin || whitelist.includes(origin)) {
-      next(null, true);
-      
-    } else {
-      next(new Error("Origin not allowed"));
-    }
-  },
-  credentials: true,
-};
-server.use(cors(corsOpts))
+server.use(cors({origin:'http://localhost:3000',credentials:true}))
 server.use(express.json())
 server.use(cookieParser())
 server.use(passport.initialize())

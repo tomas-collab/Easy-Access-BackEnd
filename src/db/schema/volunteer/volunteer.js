@@ -9,7 +9,7 @@ const volunteerSchema = new Schema({
     age:{type:Number},    
     email:{type:String,required:true},
     description:{type:String},
-    phoneNumber:{type:String},
+    phoneNumber:{type:Number},
     password:{type:String},
     googleId: { type: String },
     location:{type:Object},
