@@ -19,7 +19,7 @@ export const httpServer = createServer(server)
 // passport.use('google',userGoogleStrategy)
 // passport.use('google',volunteerGoogleStrategy)
 
-const whitelist = ['http://localhost:3000','https://easy-access-frontend.vercel.app']
+const whitelist = [`${process.env.API_URL_DEVELOPMENT}`,`${process.env.API_URL_PRODUCTION}`]
 
 const corsOpts = {
   origin: function (origin, next) {
