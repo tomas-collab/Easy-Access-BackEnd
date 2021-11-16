@@ -19,8 +19,20 @@ export const httpServer = createServer(server)
 // passport.use('google',userGoogleStrategy)
 // passport.use('google',volunteerGoogleStrategy)
 
+const whitelist = ['http://localhost:3000','https://easy-access-frontend.vercel.app']
 
-server.use(cors({origin:'https://easy-access-frontend.vercel.app',credentials:true}))
+const corsOpts = {
+  origin: function (origin, next) {
+    if (!origin || whitelist.includes(origin)) {
+      next(null, true);
+      
+    } else {
+      next(new Error("Origin not allowed"));
+    }
+  },
+  credentials: true,
+};
+server.use(cors(corsOpts))
 server.use(express.json())
 server.use(cookieParser())
 server.use(passport.initialize())
