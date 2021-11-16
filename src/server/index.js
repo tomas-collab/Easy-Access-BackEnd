@@ -20,7 +20,7 @@ export const httpServer = createServer(server)
 // passport.use('google',volunteerGoogleStrategy)
 
 
-server.use(cors({origin:'https://easy-access-frontend.vercel.app',credentials:true}))
+server.use(cors({origin:`${process.env.API_URL}`,credentials:true}))
 server.use(express.json())
 server.use(cookieParser())
 server.use(passport.initialize())
