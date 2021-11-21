@@ -51,7 +51,7 @@ const UserLogin = async(req,res,next)=>{
         console.log('user',user)
         if(user){
             const accessToken = await jwtAuth(user)
-            res.cookie('token',accessToken,{sameSite:'strict'})
+            res.cookie('token',accessToken,{secure:true,sameSite:'none'})
             res.send(accessToken)
             console.log('token',{accessToken})
         }else{
